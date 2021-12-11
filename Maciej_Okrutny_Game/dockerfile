@@ -1,9 +1,0 @@
-FROM python:3.9.7
-
-ADD Main.py
-ADD Game.py
-
-
-RUN pip install pygame
-
-CMD ["python","./main.py"]
