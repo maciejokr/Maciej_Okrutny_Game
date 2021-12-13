@@ -186,7 +186,7 @@ class Enemy(Physic):
             else:
                 window.blit(self.stand_left_img,(self.x_cord + x_background , self.y_cord))
 
-    def draw_hp_status(self):
+    def hp_status(self):
         if self.hp==0:
             return True
 

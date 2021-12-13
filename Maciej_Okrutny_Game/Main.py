@@ -19,6 +19,7 @@ def Local_Game():
     pause_image = pygame.font.Font.render(pygame.font.SysFont("", 96), "Pauza", True, (255, 255, 255))
     clock=0
     score=0
+    score_text=pygame.font.Font.render(pygame.font.SysFont("", 46), f"Score:{score}", True, (255, 255, 255))
     num_enemy=0
     name_enemy=["Jack","Bandit"]
     player=Player()
@@ -58,8 +59,10 @@ def Local_Game():
         if player.dead() or end_game(player, background.width): run=False
         background.draw(window)
         pygame.draw.rect(window, (255,0,0), [15,20,player.hp,10], 0)
+        score_text=pygame.font.Font.render(pygame.font.SysFont("", 46), f"Score:{score}", True, (255, 255, 255))
         
         player.draw(window,background.width,resolution)
+        window.blit(score_text, (15, 50))
         
         for beam in beams:
             beam.draw(window,background.x_cord)
@@ -68,8 +71,9 @@ def Local_Game():
             colision(player,enemy)
             enemy.tick(beams,player.x_cord, background.width)
             enemy.draw(window,background.x_cord)
-            if enemy.draw_hp_status():
+            if enemy.hp_status():
                 enemys.remove(enemy)
+                score += 10
 
         for attack in attacks:
             attack.tick()
@@ -81,7 +85,6 @@ def Local_Game():
                 if attack.destruction(obejct):
                     try:
                         attacks.remove(attack)
-                        score += 10
                     except ValueError:
                         pass
                         
